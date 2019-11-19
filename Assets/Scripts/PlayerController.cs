@@ -2,44 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Actor))]
 public class PlayerController : MonoBehaviour
 {
-    private Collider2D c2D;
+    private Actor actor;
 
     public float maxSpeed;
-    public float acceleration;
-    //public float airModifier;
+    public float groundAcceleration;
+    public float airAcceleration;
     public float gravity;
+    public float jumpHeight;
 
-    public bool isGrounded;
-
+    public bool grounded;
 
     public Vector2 velocity;
 
     private void Awake()
     {
-        c2D = GetComponent<Collider2D>();
+        actor = GetComponent<Actor>();
         velocity = Vector2.zero;
     }
 
     private void Update()
     {
-        if (c2D.Cast(Vector2.down, null, 0.01f) > 0)
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-
-        Vector2 targetVelocity = Vector2.zero;
-
         float moveInput = Input.GetAxisRaw("Horizontal");
-        targetVelocity += Vector2.right * moveInput * maxSpeed;
-        velocity.x = Mathf.MoveTowards(velocity.x, targetVelocity.x, acceleration);
+        float targetMove = maxSpeed * moveInput / 60f;
+        float acceleration = grounded ? groundAcceleration : airAcceleration;
+        velocity.x = Mathf.MoveTowards(velocity.x, targetMove, acceleration * Time.deltaTime);
 
-        transform.Translate(velocity * Time.deltaTime);
+        if (grounded)
+        {
+            velocity.y = 0;
+            if (Input.GetButtonDown("Jump"))
+            {
+                grounded = false;
+                velocity.y = Mathf.Sqrt(2 * jumpHeight * gravity);
+            }
+        }
+
+        velocity.y -= gravity * Time.deltaTime;
+
+        actor.MoveX(velocity.x, CollideX);
+        actor.MoveY(velocity.y, CollideY);
+    }
+
+    private void CollideX()
+    {
+        velocity.x = 0;
+    }
+
+    private void CollideY()
+    {
+        if (velocity.y < 0) grounded = true;
+        velocity.y = 0;
     }
 }
