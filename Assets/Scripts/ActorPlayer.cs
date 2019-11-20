@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Actor))]
-public class ActorPlayer : MonoBehaviour
+public class ActorPlayer : Actor
 {
-    private Actor actor;
-
     public float maxSpeed;
     public float groundAcceleration;
     public float airAcceleration;
@@ -17,10 +14,10 @@ public class ActorPlayer : MonoBehaviour
 
     public Vector2 velocity;
 
-    private void Awake()
+    protected override void Awake()
     {
-        actor = GetComponent<Actor>();
         velocity = Vector2.zero;
+        base.Awake();
     }
 
     private void Update()
@@ -28,14 +25,14 @@ public class ActorPlayer : MonoBehaviour
         // Check ground
         Collider2D[] hits = Physics2D.OverlapBoxAll(
             transform.position + Vector3.down,
-            actor.boxCollider.size,
+            boxCollider.size,
             0,
-            actor.solidLayer
+            solidLayer
         );
         if (hits.Length > 0)
             grounded = true;
-        else 
-            grounded = false; 
+        else
+            grounded = false;
 
         // Player Input
         float moveInput = Input.GetAxisRaw("Horizontal");
@@ -55,8 +52,8 @@ public class ActorPlayer : MonoBehaviour
 
         velocity.y -= gravity * Time.deltaTime;
 
-        actor.MoveX(velocity.x, CollideX);
-        actor.MoveY(velocity.y, CollideY);
+        MoveX(velocity.x, CollideX);
+        MoveY(velocity.y, CollideY);
     }
 
     private void CollideX()
@@ -68,5 +65,24 @@ public class ActorPlayer : MonoBehaviour
     {
         if (velocity.y < 0) grounded = true;
         velocity.y = 0;
+    }
+
+    public override bool IsRinging(Solid solid)
+    {
+        Collider2D[] hits = Physics2D.OverlapBoxAll(
+            transform.position + Vector3.down,
+            boxCollider.size,
+            0,
+            solidLayer
+        );
+
+        foreach (Collider2D collider in hits)
+            if (collider == solid.boxCollider) return true;
+        return false;
+    }
+
+    public override void Squish()
+    {
+        throw new System.NotImplementedException();
     }
 }

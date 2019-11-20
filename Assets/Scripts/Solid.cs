@@ -5,16 +5,17 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Solid : MonoBehaviour
 {
-    private BoxCollider2D boxCollider;
+    [HideInInspector]
+    public BoxCollider2D boxCollider;
 
     private float xRemainer = 0f;
     private float yRemainer = 0f;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
     }
-
+    
     public void Move(Vector3 move)
     {
         Move(move.x, move.y);
@@ -33,8 +34,9 @@ public class Solid : MonoBehaviour
             Actor[] allActors = GameObject.FindObjectsOfType<Actor>();
             List<Actor> ridingActor = new List<Actor>();
             foreach (Actor actor in allActors)
-            {
-
+            {   
+                if (actor.IsRinging(this))
+                    ridingActor.Add(actor);
             }
 
             if (moveX != 0)
@@ -50,7 +52,7 @@ public class Solid : MonoBehaviour
                         boxCollider.enabled = false;
                         actor.MoveX(
                             (dist.pointA - dist.pointB).x + Mathf.Sign(moveX),
-                            null
+                            actor.Squish
                         );
                         boxCollider.enabled = true;
                     }
@@ -74,7 +76,7 @@ public class Solid : MonoBehaviour
                         boxCollider.enabled = false;
                         actor.MoveY(
                             (dist.pointA - dist.pointB).y + Mathf.Sign(moveY),
-                            null
+                            actor.Squish
                         );
                         boxCollider.enabled = true;
                     }

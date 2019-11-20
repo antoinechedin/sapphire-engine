@@ -3,11 +3,17 @@
 [RequireComponent(typeof(BoxCollider2D))]
 public class Actor : MonoBehaviour
 {
+    [HideInInspector]
+    public BoxCollider2D boxCollider;
     public LayerMask solidLayer;
 
     private float xRemainer = 0f;
     private float yRemainer = 0f;
-    public BoxCollider2D boxCollider;
+
+    protected virtual void Awake()
+    {
+        boxCollider = GetComponent<BoxCollider2D>();
+    }
 
     public void MoveX(float amount, System.Action onCollide)
     {
@@ -30,7 +36,7 @@ public class Actor : MonoBehaviour
                 transform.Translate(sign, 0, 0);
                 move -= sign;
             }
-            else 
+            else
             {
                 if (onCollide != null)
                     onCollide();
@@ -59,12 +65,16 @@ public class Actor : MonoBehaviour
                 transform.Translate(0, sign, 0);
                 move -= sign;
             }
-            else 
+            else
             {
-                 if (onCollide != null)
+                if (onCollide != null)
                     onCollide();
                 break;
             }
         }
     }
+
+    public virtual bool IsRinging(Solid solid) { return false; }
+
+    public virtual void Squish() { }
 }
