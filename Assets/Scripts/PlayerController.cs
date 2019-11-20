@@ -25,6 +25,19 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Check ground
+        Collider2D[] hits = Physics2D.OverlapBoxAll(
+            transform.position + Vector3.down,
+            actor.boxCollider.size,
+            0,
+            actor.solidLayer
+        );
+        if (hits.Length > 0)
+            grounded = true;
+        else 
+            grounded = false; 
+
+        // Player Input
         float moveInput = Input.GetAxisRaw("Horizontal");
         float targetMove = maxSpeed * moveInput / 60f;
         float acceleration = grounded ? groundAcceleration : airAcceleration;

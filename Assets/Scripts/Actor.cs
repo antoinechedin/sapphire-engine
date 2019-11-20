@@ -7,11 +7,7 @@ public class Actor : MonoBehaviour
 
     private float xRemainer = 0f;
     private float yRemainer = 0f;
-    private BoxCollider2D boxCollider;
-
-    private void Awake() {
-        boxCollider = GetComponent<BoxCollider2D>();
-    }
+    public BoxCollider2D boxCollider;
 
     public void MoveX(float amount, System.Action onCollide)
     {
