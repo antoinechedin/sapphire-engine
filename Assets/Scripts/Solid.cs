@@ -32,7 +32,6 @@ public class Solid : MonoBehaviour
         {
             Actor[] allActors = GameObject.FindObjectsOfType<Actor>();
             List<Actor> ridingActor = new List<Actor>();
-            boxCollider.enabled = false;
 
             if (moveX != 0)
             {
@@ -41,12 +40,15 @@ public class Solid : MonoBehaviour
 
                 foreach (Actor actor in allActors)
                 {
-                    if (boxCollider.IsTouching(actor.boxCollider))
+                    ColliderDistance2D dist = boxCollider.Distance(actor.boxCollider);
+                    if (dist.isOverlapped)
                     {
+                        boxCollider.enabled = false;
                         actor.MoveX(
-                            boxCollider.size.x / 2f - actor.boxCollider.size.x / 2f,
+                            (dist.pointA - dist.pointB).x + Mathf.Sign(moveX),
                             null
                         );
+                        boxCollider.enabled = true;
                     }
                     else if (ridingActor.Contains(actor))
                     {
@@ -58,16 +60,19 @@ public class Solid : MonoBehaviour
             if (moveY != 0)
             {
                 yRemainer -= moveY;
-                transform.Translate(moveY, 0, 0);
+                transform.Translate(0, moveY, 0);
 
                 foreach (Actor actor in allActors)
                 {
-                    if (boxCollider.IsTouching(actor.boxCollider))
+                    ColliderDistance2D dist = boxCollider.Distance(actor.boxCollider);
+                    if (dist.isOverlapped)
                     {
+                        boxCollider.enabled = false;
                         actor.MoveY(
-                            boxCollider.size.y / 2f - actor.boxCollider.size.y / 2f,
+                            (dist.pointA - dist.pointB).y + Mathf.Sign(moveY),
                             null
                         );
+                        boxCollider.enabled = true;
                     }
                     else if (ridingActor.Contains(actor))
                     {
@@ -76,7 +81,7 @@ public class Solid : MonoBehaviour
                 }
             }
 
-            boxCollider.enabled = true;
+
         }
     }
 }
