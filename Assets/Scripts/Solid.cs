@@ -32,6 +32,10 @@ public class Solid : MonoBehaviour
         {
             Actor[] allActors = GameObject.FindObjectsOfType<Actor>();
             List<Actor> ridingActor = new List<Actor>();
+            foreach (Actor actor in allActors)
+            {
+
+            }
 
             if (moveX != 0)
             {

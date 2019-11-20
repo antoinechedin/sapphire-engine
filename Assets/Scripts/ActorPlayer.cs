@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Actor))]
-public class PlayerController : MonoBehaviour
+public class ActorPlayer : MonoBehaviour
 {
     private Actor actor;
 

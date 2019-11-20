@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Solid))]
-public class MovingSolid : MonoBehaviour
+public class SolidMoving : MonoBehaviour
 {
     private Solid solid;
 
