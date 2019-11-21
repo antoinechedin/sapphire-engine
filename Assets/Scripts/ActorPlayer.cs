@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
 public class ActorPlayer : Actor
 {
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
     public float maxSpeed;
     public float groundAcceleration;
     public float airAcceleration;
@@ -16,8 +20,10 @@ public class ActorPlayer : Actor
 
     protected override void Awake()
     {
-        velocity = Vector2.zero;
         base.Awake();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        velocity = Vector2.zero;
     }
 
     private void Update()
@@ -54,6 +60,16 @@ public class ActorPlayer : Actor
 
         MoveX(velocity.x, CollideX);
         MoveY(velocity.y, CollideY);
+
+        Animation();
+    }
+
+    private void Animation()
+    {
+        animator.SetBool("moving", velocity.x != 0);
+        animator.SetBool("grounded", grounded);
+        if (velocity.x > 0) spriteRenderer.flipX = false;
+        if (velocity.x < 0) spriteRenderer.flipX = true;
     }
 
     private void CollideX()
