@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
 public class ActorPlayer : Actor
 {
-    private Animator animator;
+    [HideInInspector]
+    public Animator animator;
     private SpriteRenderer spriteRenderer;
 
     public float maxSpeed;
@@ -18,51 +19,19 @@ public class ActorPlayer : Actor
 
     public Vector2 velocity;
 
-    public bool isRewinding = false;
-    private List<Instant> history;
-
     protected override void Awake()
     {
         base.Awake();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        history = new List<Instant>();
         velocity = Vector2.zero;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-            isRewinding = true;
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-            isRewinding = false;
-
-        if (!isRewinding)
+        if(!TimeManager.Instance.rewind)
             Physics();
         Animation();
-    }
-
-    private void FixedUpdate()
-    {
-        if (isRewinding)
-            Rewind();
-        else
-            Record();
-    }
-
-    private void Record()
-    {
-        AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
-        
-        history.Insert(0, new Instant(transform.position,velocity, info.normalizedTime, info.shortNameHash));
-    }
-
-    private void Rewind()
-    {
-        animator.Play(history[0].stateNameHash, 0, history[0].normalisedTime);
-        transform.position = history[0].position;
-        velocity = history[0].velocity;
-        history.RemoveAt(0);
     }
 
     private void Physics()

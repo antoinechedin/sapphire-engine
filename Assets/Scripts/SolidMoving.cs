@@ -7,31 +7,35 @@ public class SolidMoving : Solid
     public float duration;
     private Vector3 start;
     private Vector3 end;
-    private float timer;
+    public float timer;
+    public bool checkCollision;
 
     protected override void Awake()
     {
         start = transform.GetChild(0).position;
         end = transform.GetChild(1).position;
+        checkCollision = true;
         base.Awake();
     }
 
     private void Update()
     {
-        if (timer < duration / 2f)
+        if (!TimeManager.Instance.rewind)
         {
-            Vector3 targetPos = Vector3.Lerp(start, end, timer * 2f / duration);
-            Move(targetPos - transform.position);
-        }
-        else
-        {
-            Vector3 targetPos = Vector3.Lerp(end, start, timer * 2f / duration - 1);
-            Move(targetPos - transform.position);
-        }
+            if (timer < duration / 2f)
+            {
+                Vector3 targetPos = Vector3.Lerp(start, end, timer * 2f / duration);
+                Move(targetPos - transform.position);
+            }
+            else
+            {
+                Vector3 targetPos = Vector3.Lerp(end, start, timer * 2f / duration - 1);
+                Move(targetPos - transform.position);
+            }
 
-
-        timer += Time.deltaTime;
-        timer %= duration;
+            timer += Time.deltaTime;
+            timer %= duration;
+        }
     }
 
 
