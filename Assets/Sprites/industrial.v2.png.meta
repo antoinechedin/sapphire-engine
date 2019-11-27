@@ -343,8 +343,8 @@ TextureImporter:
     21300676: industrial.v2_338
     21300678: industrial.v2_339
     21300680: industrial.v2_340
-    21300682: industrial.v2_341
-    21300684: industrial.v2_342
+    21300682: player_death_3
+    21300684: player_death_5
     21300686: industrial.v2_343
     21300688: industrial.v2_344
     21300690: industrial.v2_345
@@ -413,6 +413,11 @@ TextureImporter:
     21300816: mystical_block_rune_0
     21300818: mystical_block_rune_1
     21300820: mystical_block_rune-2
+    21300822: player_death_0
+    21300824: player_death_1
+    21300826: player_death_2
+    21300828: player_death_4
+    21300830: player_death_6
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -6755,7 +6760,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_341
+      name: player_death_3
       rect:
         serializedVersion: 2
         x: 144
@@ -6775,7 +6780,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_342
+      name: player_death_5
       rect:
         serializedVersion: 2
         x: 176
@@ -8150,6 +8155,106 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 3a1d8e7082dc08244b7c6c26b302883d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_death_0
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 224
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21859ba5b41473040a61842785cb36fd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_death_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 224
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65a70680969443c47bdf0da3c91b5463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_death_2
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 224
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7593b3f645d303844b4243e46909e12e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_death_4
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 208
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da30bdacfc7df8243b222f1094588729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_death_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 208
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f273f3b083edd3c458b00b15cbd02b96
       vertices: []
       indices: 
       edges: []
