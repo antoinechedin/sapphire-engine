@@ -16,7 +16,7 @@ public class TESolidMoving : TimeEntity
 
     public override void Record()
     {
-        Instant instant = new Instant(solidMoving.transform.position);
+        Instant instant = new Instant(solidMoving.timer);
         history.Push(instant);
     }
 
@@ -31,16 +31,17 @@ public class TESolidMoving : TimeEntity
         {
             instant = history.Peek();
         }
-        solidMoving.transform.position = instant.position;
+        solidMoving.timer = instant.timer;
+        solidMoving.transform.position = solidMoving.GetTargetPosition(instant.timer);
     }
 
     private struct Instant
     {
-        public Vector2 position;
+        public float timer;
 
-        public Instant(Vector2 position)
+        public Instant(float timer)
         {
-            this.position = position;
+            this.timer = timer;
         }
     }
 }

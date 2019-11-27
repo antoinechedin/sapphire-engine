@@ -18,20 +18,19 @@ public class SolidMoving : Solid
         base.Awake();
     }
 
+    public Vector3 GetTargetPosition(float timer)
+    {
+        if (timer < duration / 2f)
+            return Vector3.Lerp(start, end, timer * 2f / duration);
+        else
+            return Vector3.Lerp(end, start, timer * 2f / duration - 1);
+    }
+
     private void Update()
     {
         if (!TimeManager.Instance.rewind)
-        {
-            if (timer < duration / 2f)
-            {
-                Vector3 targetPos = Vector3.Lerp(start, end, timer * 2f / duration);
-                Move(targetPos - transform.position);
-            }
-            else
-            {
-                Vector3 targetPos = Vector3.Lerp(end, start, timer * 2f / duration - 1);
-                Move(targetPos - transform.position);
-            }
+        {            
+            Move(GetTargetPosition(timer) - transform.position);  
 
             timer += Time.deltaTime;
             timer %= duration;
