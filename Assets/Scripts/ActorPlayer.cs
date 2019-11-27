@@ -15,6 +15,7 @@ public class ActorPlayer : Actor
     public float jumpHeight;
 
     public bool grounded;
+    public bool alive;
 
     public Vector2 velocity;
 
@@ -24,10 +25,13 @@ public class ActorPlayer : Actor
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         velocity = Vector2.zero;
+        alive = true;
     }
 
     private void Update()
     {
+        if (alive)
+        {
         // Check ground
         Collider2D[] hits = Physics2D.OverlapBoxAll(
             transform.position + Vector3.down,
@@ -41,27 +45,29 @@ public class ActorPlayer : Actor
             grounded = false;
 
         // Player Input
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        float targetMove = maxSpeed * moveInput / 60f;
-        float acceleration = grounded ? groundAcceleration : airAcceleration;
-        velocity.x = Mathf.MoveTowards(velocity.x, targetMove, acceleration * Time.deltaTime);
+        
+            float moveInput = Input.GetAxisRaw("Horizontal");
+            float targetMove = maxSpeed * moveInput / 60f;
+            float acceleration = grounded ? groundAcceleration : airAcceleration;
+            velocity.x = Mathf.MoveTowards(velocity.x, targetMove, acceleration * Time.deltaTime);
 
-        if (grounded)
-        {
-            velocity.y = 0;
-            if (Input.GetButtonDown("Jump"))
+            if (grounded)
             {
-                grounded = false;
-                velocity.y = Mathf.Sqrt(2 * jumpHeight * gravity);
+                velocity.y = 0;
+                if (Input.GetButtonDown("Jump"))
+                {
+                    grounded = false;
+                    velocity.y = Mathf.Sqrt(2 * jumpHeight * gravity);
+                }
             }
+
+            velocity.y -= gravity * Time.deltaTime;
+
+            MoveX(velocity.x, CollideX);
+            MoveY(velocity.y, CollideY);
+
+            Animation();
         }
-
-        velocity.y -= gravity * Time.deltaTime;
-
-        MoveX(velocity.x, CollideX);
-        MoveY(velocity.y, CollideY);
-
-        Animation();
     }
 
     private void Animation()
@@ -70,6 +76,16 @@ public class ActorPlayer : Actor
         animator.SetBool("grounded", grounded);
         if (velocity.x > 0) spriteRenderer.flipX = false;
         if (velocity.x < 0) spriteRenderer.flipX = true;
+    }
+
+    public void Die()
+    {
+        if (alive)
+        {
+            alive = false;
+            velocity = Vector3.zero;
+            animator.SetTrigger("die");
+        }
     }
 
     private void CollideX()
@@ -99,6 +115,6 @@ public class ActorPlayer : Actor
 
     public override void Squish()
     {
-        throw new System.NotImplementedException();
+        Die();
     }
 }
