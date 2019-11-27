@@ -7,6 +7,8 @@ public class Activable : MonoBehaviour
 {
     private Animator animator;
 
+    public Trapdoor[] trapdoors;
+
     public bool isUsable;
     public bool powered;
 
@@ -26,9 +28,19 @@ public class Activable : MonoBehaviour
             if (animator != null)
             {
                 if (powered)
+                {
                     animator.SetTrigger("enable");
+                    if (trapdoors != null)
+                        foreach (Trapdoor trapdoor in trapdoors)
+                            trapdoor.Closed();
+                }
                 else
+                {
                     animator.SetTrigger("disable");
+                    if (trapdoors != null)
+                        foreach (Trapdoor trapdoor in trapdoors)
+                            trapdoor.Open();
+                }
             }
 
         }
