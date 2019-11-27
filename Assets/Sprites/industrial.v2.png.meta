@@ -180,11 +180,11 @@ TextureImporter:
     21300350: industrial.v2_175
     21300352: industrial.v2_176
     21300354: industrial.v2_177
-    21300356: industrial.v2_178
-    21300358: industrial.v2_179
-    21300360: industrial.v2_180
-    21300362: industrial.v2_181
-    21300364: industrial.v2_182
+    21300356: lever_0
+    21300358: lever_1
+    21300360: lever_2
+    21300362: lever_3
+    21300364: lever_4
     21300366: industrial.v2_183
     21300368: industrial.v2_184
     21300370: industrial.v2_185
@@ -243,10 +243,10 @@ TextureImporter:
     21300476: industrial.v2_238
     21300478: industrial.v2_239
     21300480: industrial.v2_240
-    21300482: industrial.v2_241
-    21300484: industrial.v2_242
-    21300486: industrial.v2_243
-    21300488: industrial.v2_244
+    21300482: trapdoor_3
+    21300484: trapdoor_2
+    21300486: trapdoor_1
+    21300488: trapdoor_0
     21300490: industrial.v2_245
     21300492: industrial.v2_246
     21300494: industrial.v2_247
@@ -4055,7 +4055,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_178
+      name: lever_0
       rect:
         serializedVersion: 2
         x: 80
@@ -4075,7 +4075,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_179
+      name: lever_1
       rect:
         serializedVersion: 2
         x: 96
@@ -4095,7 +4095,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_180
+      name: lever_2
       rect:
         serializedVersion: 2
         x: 112
@@ -4115,7 +4115,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_181
+      name: lever_3
       rect:
         serializedVersion: 2
         x: 128
@@ -4135,7 +4135,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_182
+      name: lever_4
       rect:
         serializedVersion: 2
         x: 144
@@ -5315,7 +5315,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_241
+      name: trapdoor_3
       rect:
         serializedVersion: 2
         x: 0
@@ -5335,7 +5335,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_242
+      name: trapdoor_2
       rect:
         serializedVersion: 2
         x: 16
@@ -5355,7 +5355,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_243
+      name: trapdoor_1
       rect:
         serializedVersion: 2
         x: 32
@@ -5375,7 +5375,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: industrial.v2_244
+      name: trapdoor_0
       rect:
         serializedVersion: 2
         x: 48
