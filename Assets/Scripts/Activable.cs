@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Activable : MonoBehaviour
 {
-    private Animator animator;
+    public Animator animator;
 
     public Trapdoor[] trapdoors;
 

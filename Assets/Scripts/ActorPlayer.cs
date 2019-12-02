@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
 public class ActorPlayer : Actor
 {
-    private Animator animator;
+    public Animator animator;
     private SpriteRenderer spriteRenderer;
 
     public float maxSpeed;
@@ -30,8 +30,15 @@ public class ActorPlayer : Actor
 
     private void Update()
     {
-        if (alive)
+        if (alive && !TimeManager.Instance.rewind)
         {
+            Physics();
+            Animation();
+        }
+    }
+
+    private void Physics()
+    {
         // Check ground
         Collider2D[] hits = Physics2D.OverlapBoxAll(
             transform.position + Vector3.down,
@@ -45,29 +52,26 @@ public class ActorPlayer : Actor
             grounded = false;
 
         // Player Input
-        
-            float moveInput = Input.GetAxisRaw("Horizontal");
-            float targetMove = maxSpeed * moveInput / 60f;
-            float acceleration = grounded ? groundAcceleration : airAcceleration;
-            velocity.x = Mathf.MoveTowards(velocity.x, targetMove, acceleration * Time.deltaTime);
 
-            if (grounded)
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        float targetMove = maxSpeed * moveInput / 60f;
+        float acceleration = grounded ? groundAcceleration : airAcceleration;
+        velocity.x = Mathf.MoveTowards(velocity.x, targetMove, acceleration * Time.deltaTime);
+
+        if (grounded)
+        {
+            velocity.y = 0;
+            if (Input.GetButtonDown("Jump"))
             {
-                velocity.y = 0;
-                if (Input.GetButtonDown("Jump"))
-                {
-                    grounded = false;
-                    velocity.y = Mathf.Sqrt(2 * jumpHeight * gravity);
-                }
+                grounded = false;
+                velocity.y = Mathf.Sqrt(2 * jumpHeight * gravity);
             }
-
-            velocity.y -= gravity * Time.deltaTime;
-
-            MoveX(velocity.x, CollideX);
-            MoveY(velocity.y, CollideY);
-
-            Animation();
         }
+
+        velocity.y -= gravity * Time.deltaTime;
+
+        MoveX(velocity.x, CollideX);
+        MoveY(velocity.y, CollideY);
     }
 
     private void Animation()

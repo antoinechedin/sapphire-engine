@@ -5,8 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(Collider2D))]
 public class Trapdoor : MonoBehaviour
 {
-    private Animator animator;
-    private Collider2D c2D;
+    public Animator animator;
+    public Collider2D c2D;
+
+    public bool open;
 
     private void Awake()
     {
